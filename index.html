@@ -3,509 +3,336 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Карта NLP / LLM — дерево</title>
+<title>NLP в проде 2026 — карта систем</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0E1216; --panel:#151B22; --panel2:#1B232C;
-  --ink:#DCE3EA; --dim:#8494A3; --faint:#4A5763;
-  --rail:#2A343E; --edge:#232C35;
-  --b1:#C6A02E; --b2:#5E9FD4; --b3:#C97B87; --b4:#6FB894; --b5:#A88AD0; --b6:#D2924F;
+  --bg:#0D1117; --panel:#141B23; --panel2:#1A232D;
+  --ink:#DDE4EB; --dim:#8A98A6; --faint:#4C5966;
+  --rail:#2B3540; --edge:#222B34;
+  --b1:#D08B4C; --b2:#5EA0D6; --b3:#6FBB96; --b4:#C88BD8; --b5:#D6C05A; --b6:#7E93E8; --b7:#8A98A6;
+  --tool:#4EC9B0; --learn:#E8B04A;
   --mono:'JetBrains Mono',ui-monospace,monospace;
   --sans:'Space Grotesk',system-ui,sans-serif;
 }
 html[data-theme="light"]{
-  --bg:#F7F6F3; --panel:#FFFFFF; --panel2:#F0EEEA;
-  --ink:#1C2229; --dim:#5C6874; --faint:#97A2AD;
-  --rail:#D8DCE0; --edge:#E4E7EA;
-  --b1:#8A6D10; --b2:#25628F; --b3:#94454F; --b4:#2F7A58; --b5:#6B4A9C; --b6:#96591C;
+  --bg:#F7F6F3; --panel:#FFFFFF; --panel2:#EFEDE9;
+  --ink:#1B222A; --dim:#5A6673; --faint:#96A1AC;
+  --rail:#D6DADE; --edge:#E3E6E9;
+  --b1:#A45E1F; --b2:#25628F; --b3:#227A52; --b4:#8E44AD; --b5:#8A7411; --b6:#3B55C4; --b7:#5A6673;
+  --tool:#0E7C6B; --learn:#9A6A08;
 }
 *{box-sizing:border-box}
-body{
-  margin:0; background:var(--bg); color:var(--ink);
-  font-family:var(--sans); font-size:15px; line-height:1.5;
-  -webkit-font-smoothing:antialiased;
-}
-header{
-  position:sticky; top:0; z-index:20; background:var(--bg);
-  border-bottom:1px solid var(--edge); padding:18px 22px 14px;
-}
-.title{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:14px}
+body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans); font-size:15px; line-height:1.5; -webkit-font-smoothing:antialiased}
+header{position:sticky; top:0; z-index:20; background:var(--bg); border-bottom:1px solid var(--edge); padding:16px 22px 12px}
+.title{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:12px}
 h1{font-size:19px; font-weight:700; margin:0; letter-spacing:-.01em}
 .sub{font-family:var(--mono); font-size:11.5px; color:var(--faint)}
-.bar{display:flex; gap:8px; flex-wrap:wrap; align-items:center}
-input[type=search]{
-  flex:1 1 240px; min-width:0; background:var(--panel); color:var(--ink);
-  border:1px solid var(--edge); border-radius:7px; padding:8px 11px;
-  font-family:var(--mono); font-size:12.5px; outline:none;
-}
-input[type=search]:focus{border-color:var(--b2); box-shadow:0 0 0 3px rgba(94,159,212,.14)}
+.bar{display:flex; gap:8px; flex-wrap:wrap}
+input[type=search]{flex:1 1 240px; min-width:0; background:var(--panel); color:var(--ink); border:1px solid var(--edge); border-radius:7px; padding:8px 11px; font-family:var(--mono); font-size:12.5px; outline:none}
+input[type=search]:focus{border-color:var(--b2); box-shadow:0 0 0 3px rgba(94,160,214,.14)}
 input[type=search]::placeholder{color:var(--faint)}
-button{
-  background:var(--panel); color:var(--dim); border:1px solid var(--edge);
-  border-radius:7px; padding:8px 12px; font-family:var(--mono); font-size:11.5px;
-  cursor:pointer; white-space:nowrap;
-}
+button{background:var(--panel); color:var(--dim); border:1px solid var(--edge); border-radius:7px; padding:8px 12px; font-family:var(--mono); font-size:11.5px; cursor:pointer; white-space:nowrap}
 button:hover{color:var(--ink); border-color:var(--rail)}
-button:focus-visible{outline:2px solid var(--b2); outline-offset:2px}
-.legend{display:flex; gap:14px; flex-wrap:wrap; margin-top:12px; font-family:var(--mono); font-size:11px}
+.legend{display:flex; gap:13px; flex-wrap:wrap; margin-top:11px; font-family:var(--mono); font-size:11px}
 .lg{display:flex; align-items:center; gap:6px; color:var(--dim); cursor:pointer}
 .lg:hover{color:var(--ink)}
 .dot{width:8px; height:8px; border-radius:2px; flex:none}
-main{padding:20px 22px 90px; max-width:1080px}
-.hint{color:var(--faint); font-size:12.5px; margin:0 0 20px; max-width:62ch}
+main{padding:18px 22px 90px; max-width:1080px}
+.hint{color:var(--faint); font-size:12.5px; margin:0 0 18px; max-width:70ch}
+.hint b{color:var(--dim); font-weight:500}
+.key{display:flex; gap:16px; flex-wrap:wrap; font-family:var(--mono); font-size:11px; margin-bottom:20px}
+.key span{color:var(--faint)}
+.key .kt{color:var(--tool)} .key .kl{color:var(--learn)}
 
 .node{position:relative}
-.kids{margin-left:15px; padding-left:16px; border-left:1px solid var(--rail)}
-.kids.lit{border-left-color:var(--accent)}
-.row{
-  display:flex; align-items:flex-start; gap:9px; padding:3px 6px 3px 0;
-  border-radius:6px; cursor:default;
-}
+.kids{margin-left:14px; padding-left:16px; border-left:1px solid var(--rail); position:relative}
+.node[data-depth="0"] > .kids{border-left-color:var(--accent)}
+.row{display:flex; align-items:flex-start; gap:9px; padding:4px 6px 4px 0; border-radius:6px}
 .row.tog{cursor:pointer}
 .row:hover{background:var(--panel)}
-.tw{
-  font-family:var(--mono); font-size:10px; color:var(--faint); width:13px;
-  flex:none; text-align:center; padding-top:3px; user-select:none;
-}
+.tw{font-family:var(--mono); font-size:10px; color:var(--faint); width:14px; flex:none; text-align:center; padding-top:4px; user-select:none}
 .row.tog:hover .tw{color:var(--accent)}
 .lbl{flex:1; min-width:0}
 .nm{font-weight:500; letter-spacing:-.005em}
-.node[data-depth="0"] > .row .nm{font-size:16.5px; font-weight:700; color:var(--accent)}
-.node[data-depth="1"] > .row .nm{color:var(--accent)}
-.mono .nm{font-family:var(--mono); font-size:13px; font-weight:400}
+.node[data-depth="0"] > .row .nm{font-size:17px; font-weight:700; color:var(--accent)}
+.node[data-depth="0"] > .row{padding-top:16px}
+.node[data-depth="1"] > .row .nm{color:var(--accent); text-transform:uppercase; font-size:12px; letter-spacing:.07em; font-family:var(--mono)}
 .d{color:var(--dim); font-size:12.5px; display:block; margin-top:1px}
-.bdg{
-  font-family:var(--mono); font-size:9.5px; letter-spacing:.04em; text-transform:uppercase;
-  padding:2px 5px; border-radius:4px; border:1px solid currentColor;
-  opacity:.72; flex:none; margin-top:3px;
-}
+.tools{display:block; margin-top:3px; font-family:var(--mono); font-size:11.5px; color:var(--tool)}
+.tools::before{content:"⚙ "; opacity:.7}
+.learn{display:block; margin-top:3px; font-family:var(--mono); font-size:11.5px; color:var(--learn)}
+.learn::before{content:"📖 "; opacity:.8}
+.xref{display:block; margin-top:2px; font-family:var(--mono); font-size:11px; color:var(--b6); cursor:pointer}
+.xref:hover{text-decoration:underline}
 .hit{background:var(--panel2); box-shadow:inset 2px 0 0 var(--accent)}
 .collapsed > .kids{display:none}
 .hidden{display:none}
 .empty{color:var(--faint); font-family:var(--mono); font-size:12.5px; padding:16px 0}
-footer{
-  border-top:1px solid var(--edge); padding:16px 22px; color:var(--faint);
-  font-family:var(--mono); font-size:11px; max-width:1080px;
-}
-@media (max-width:600px){
-  main,header,footer{padding-left:14px; padding-right:14px}
-  .kids{margin-left:9px; padding-left:11px}
-}
+footer{border-top:1px solid var(--edge); padding:16px 22px; color:var(--faint); font-family:var(--mono); font-size:11px; max-width:1080px}
+@media (max-width:600px){ main,header,footer{padding-left:13px;padding-right:13px} .kids{margin-left:8px;padding-left:11px} }
 </style>
 </head>
 <body>
 
 <header>
   <div class="title">
-    <h1>Карта NLP / LLM</h1>
-    <span class="sub">от токена до RAG · дерево зависимостей</span>
+    <h1>NLP в проде — 2026</h1>
+    <span class="sub">6 систем, которые реально строят · сверху продукт, внизу фундамент</span>
   </div>
   <div class="bar">
-    <input type="search" id="q" placeholder="поиск: faiss, lora, bert, ndcg…" autocomplete="off">
+    <input type="search" id="q" placeholder="поиск: vllm, lora, mcp, faiss, qlora…" autocomplete="off">
     <button id="all">развернуть всё</button>
-    <button id="none">свернуть всё</button>
+    <button id="none">свернуть</button>
     <button id="theme">тема</button>
   </div>
   <div class="legend" id="legend"></div>
 </header>
 
 <main>
-  <p class="hint">Клик по строке сворачивает ветку. Поиск подсвечивает совпадения и раскрывает путь до них. Бейджи справа — тип узла: <span class="sub">enc</span> энкодер, <span class="sub">dec</span> декодер, <span class="sub">s2s</span> энкодер-декодер, <span class="sub">ru</span> русскоязычная модель, <span class="sub">idx</span> индекс, <span class="sub">sys</span> система, <span class="sub">met</span> метрика.</p>
+  <p class="hint"><b>Как читать:</b> каждый корень — система, которую компании шипят прямо сейчас. Внутри — стадии её пайплайна в порядке выполнения. У стадии: что делает → <span class="key"><span class="kt">⚙ инструменты 2026</span></span> → <span class="key"><span class="kl">📖 что учить, чтобы понять этот узел</span></span>. Синие стрелки → прыжок к общему фундаменту (ветка 7), чтобы одно и то же не повторялось шесть раз.</p>
   <div id="tree"></div>
   <p class="empty hidden" id="empty">ничего не найдено</p>
 </main>
 
-<footer>карта живая — правь массив TREE внизу файла и добавляй свои узлы</footer>
+<footer>массив TREE внизу файла — дописывай узлы по мере изучения</footer>
 
 <script>
 const TREE = [
 
-/* ─────────────────────────── 1 ─────────────────────────── */
-{n:"Фундамент: как текст становится числами", a:"--b1", d:"всё, что было до трансформера — но до сих пор работает и до сих пор спрашивают", c:[
+/* ══════════ 1. RAG ══════════ */
+{n:"RAG — чат по базе знаний", a:"--b1", d:"Самая массовая NLP-система 2026: ~72% энтерпрайза гоняет в проде. Вопрос → нашли куски в своих документах → LLM отвечает только по ним, с цитатами. Два независимых пайплайна: индексация (офлайн) и ответ (онлайн) — их рассинхрон, а не модель, главная причина смертей в проде", c:[
 
-  {n:"Токенизация", d:"текст → последовательность индексов из словаря", c:[
-    {n:"Word-level", d:"словарь целых слов. Ломается на OOV, для русского словарь огромен из-за падежей"},
-    {n:"Char-level", d:"символы. Крошечный словарь, но последовательности длинные"},
-    {n:"Subword — стандарт сегодня", d:"компромисс: частые слова целиком, редкие бьются на куски", c:[
-      {n:"BPE", m:1, d:"итеративно склеивает самые частые пары символов. GPT, RoBERTa"},
-      {n:"WordPiece", m:1, d:"то же, но выбор пары по приросту правдоподобия. BERT"},
-      {n:"SentencePiece / Unigram", m:1, d:"не требует предварительного разбиения по пробелам. T5, LLaMA"}
-    ]},
-    {n:"Спецтокены", m:1, d:"[CLS] [SEP] [MASK] [PAD] — служебные позиции, у каждой архитектуры свои"}
+  {n:"Офлайн: индексация", d:"гоняется по расписанию, не при запросе", c:[
+    {n:"Парсинг документов", d:"PDF/HTML/docx → чистый текст с сохранением структуры. Таблицы и заголовки теряются здесь, а вина потом падает на модель",
+     t:"unstructured · docling · marker · OCR: tesseract, Surya"},
+    {n:"Чанкинг", d:"режем на куски под размер контекста ретривера. Главный тихий убийца качества: наивные 512 токенов рвут таблицы и связность",
+     t:"recursive splitter · semantic chunking · hierarchical (parent-child)",
+     l:"потрать день на эксперименты с размером/overlap на своих данных — даст больше, чем смена модели"},
+    {n:"Эмбеддинг чанков", d:"каждый чанк → вектор. Модель зафиксировать: смена эмбеддера индекса без смены на запросе = тихая деградация recall",
+     t:"bge-m3 · e5 · Qwen3-Embedding · ru: USER-bge-m3, GigaEmbeddings",
+     x:"как устроен эмбеддер → 7. Фундамент / Эмбеддер"},
+    {n:"Векторное хранилище", d:"векторы + метаданные + фильтры + персистентность",
+     t:"Qdrant · Milvus · pgvector (если уже есть постгрес) · FAISS (библиотека, не БД — для пет-проекта то, что надо)",
+     x:"как ищутся соседи → 7. Фундамент / ANN-индексы"}
   ]},
 
-  {n:"Векторы слов", d:"как слово превращается в точку в пространстве", c:[
-    {n:"Разреженные — без обучения смысла", c:[
-      {n:"Bag of Words / TF-IDF", d:"частота слова с поправкой на его редкость. Смысла не знает вообще"},
-      {n:"BM25", d:"улучшенный TF-IDF с насыщением и нормировкой на длину. До сих пор сильнейший лексический baseline — обязателен как точка отсчёта"}
-    ]},
-    {n:"Статические плотные — один вектор на слово навсегда", c:[
-      {n:"word2vec", d:"CBOW и skip-gram, negative sampling. 2013 — точка, с которой началось всё"},
-      {n:"GloVe", d:"разложение матрицы совстречаемости. 2014"},
-      {n:"fastText", d:"слово = сумма символьных n-грамм. Переживает OOV и богатую морфологию → важен для русского"}
-    ]},
-    {n:"Контекстные — вектор зависит от предложения", d:"«замок» в «средневековый замок» и «дверной замок» получают разные векторы", c:[
-      {n:"ELMo", d:"двунаправленная LSTM. 2018, последний шаг перед трансформерами"},
-      {n:"BERT и далее", d:"→ ветка 2"}
-    ]}
+  {n:"Онлайн: ответ на запрос", d:"путь одного вопроса, слева направо", c:[
+    {n:"1 · Преобразование запроса", d:"переписать разговорный вопрос в поисковый; сложный — разложить на подзапросы",
+     t:"query rewrite · decomposition · HyDE (LLM пишет гипотетический ответ, ищем по нему)"},
+    {n:"2 · Гибридный retrieval", d:"BM25 и векторный поиск параллельно, слияние через RRF. Скучный ответ, который всегда всплывает в проде: лексика ловит коды ошибок и версии, векторы ловят перефраз. По одному — оба хуже",
+     t:"BM25 (Elasticsearch / rank_bm25) + dense + RRF",
+     x:"почему две модели сопоставления → 7. Фундамент / Bi- vs Cross-encoder"},
+    {n:"3 · Reranking", d:"cross-encoder пересортировывает топ-50 → топ-5. Контекст LLM дорогой — мусор режется до него",
+     t:"bge-reranker-v2-m3 · Cohere Rerank · Qwen3-Reranker"},
+    {n:"4 · Сборка промпта и генерация", d:"инструкция + найденные куски + вопрос → LLM. Обязателен путь отказа: retrieval пуст → «не нашёл», а не галлюцинация",
+     t:"API: OpenAI/Anthropic/YandexGPT · self-host: Llama, Qwen через vLLM",
+     x:"как модель пишет текст → 7. Фундамент / Как устроена LLM"},
+    {n:"5 · Постобработка", d:"цитаты со ссылками на источник, фильтры на выходе"}
   ]},
 
-  {n:"Архитектуры до трансформера", d:"знать концептуально: спрашивают «почему отказались»", c:[
-    {n:"RNN", d:"состояние передаётся по цепочке. Затухающий градиент на длинных текстах"},
-    {n:"LSTM / GRU", d:"гейты решают, что помнить и что забыть. LSTM тяжелее, GRU проще"},
-    {n:"seq2seq", d:"энкодер сжимает вход в один вектор, декодер разворачивает. Узкое горло — этот вектор"},
-    {n:"Attention (Bahdanau, Luong)", d:"декодер смотрит на все состояния энкодера, а не на один вектор. Прямой предок self-attention"}
-  ]}
+  {n:"Оценка и эксплуатация", d:"то, что отличает прод от демки — и где заваливают на собесе", c:[
+    {n:"RAGAS-метрики", d:"faithfulness (не выдумал ли), context precision/recall (то ли нашли), answer relevance. Прод-планка: faithfulness ≥ 0.85",
+     t:"RAGAS · DeepEval"},
+    {n:"Golden set как CI", d:"фикс-набор вопросов с эталонами, гоняется на каждое изменение конфига. Ловит больше багов, чем апгрейды реранкера"},
+    {n:"Трейсинг", d:"лог каждого запроса: какие чанки достали, порядок после rerank, промпт, ответ. Без этого нельзя понять, кто виноват — retrieval или генерация",
+     t:"Langfuse (стандарт 2026) · LangSmith"},
+    {n:"Дрифт", d:"система на 90 баллов через год показывает 60 без единого изменения кода: документы устаревают, пороги тихо пропускают шум"}
+  ]},
+
+  {n:"Типовой пет-проект", d:"sberquad → корпус абзацев → BM25 vs dense vs hybrid → таблица Recall@10 / латентность → + reranker → прирост NDCG. Это ровно тот проект, который мы обсуждали",
+   l:"kapa.ai «RAG pipeline 2026» · курс HF NLP гл. про retrieval"}
 ]},
 
-/* ─────────────────────────── 2 ─────────────────────────── */
-{n:"Трансформер", a:"--b2", d:"один блок, три способа его собрать — отсюда расходится вся современная NLP", c:[
+/* ══════════ 2. Поиск ══════════ */
+{n:"Семантический поиск и ранжирование", a:"--b2", d:"Ядро Яндекса как компании. RAG без генерации: найти и отранжировать. Всегда одна и та же двухстадийная воронка — быстро и грубо отобрать, медленно и точно отсортировать", c:[
 
-  {n:"Что внутри блока", c:[
-    {n:"Self-attention", d:"каждый токен смотрит на все остальные и решает, кто ему важен", c:[
-      {n:"Q, K, V", m:1, d:"запрос, ключ, значение — три проекции одного входа"},
-      {n:"softmax(QKᵀ/√d)·V", m:1, d:"вся формула внимания. Деление на √d — чтобы softmax не насыщался"},
-      {n:"Multi-head", d:"несколько параллельных «взглядов», результаты склеиваются"},
-      {n:"Маскирование", d:"causal — видно только назад (декодер); bidirectional — видно всё (энкодер). Это и есть главное различие семейств"}
-    ]},
-    {n:"Позиционное кодирование", d:"attention сам по себе не знает порядок слов — порядок приходится добавлять", c:[
-      {n:"Синусоидальное", d:"оригинальная статья 2017"},
-      {n:"Обучаемое", d:"BERT — просто таблица эмбеддингов позиций"},
-      {n:"RoPE", d:"вращение векторов. Стандарт в современных LLM, хорошо экстраполируется на длинный контекст"},
-      {n:"ALiBi", d:"линейный штраф за расстояние, без отдельных эмбеддингов"}
-    ]},
-    {n:"Остальная обвязка", c:[
-      {n:"FFN / MLP", d:"два линейных слоя с нелинейностью. Большая часть параметров модели лежит здесь"},
-      {n:"LayerNorm", d:"pre-LN (сейчас) против post-LN (оригинал). Pre-LN стабильнее учится"},
-      {n:"Residual connections", d:"без них глубокая сеть не обучается"}
-    ]},
-    {n:"Оптимизации внимания", d:"attention квадратичен по длине — вся борьба идёт здесь", c:[
-      {n:"Flash Attention", d:"тот же результат, но без материализации матрицы внимания в памяти"},
-      {n:"MQA / GQA", d:"головы делят общие K и V. Резко уменьшает KV-cache"},
-      {n:"Sliding window / sparse", d:"смотрим не на всё, а на окно или разреженный набор"}
-    ]}
+  {n:"Стадия 1 · Retrieval", d:"миллионы документов → сотня кандидатов за миллисекунды", c:[
+    {n:"Bi-encoder кодирует корпус офлайн", d:"каждый документ → вектор, один раз. Запрос кодируется на лету, ищутся ближайшие",
+     x:"почему нельзя сразу точной моделью → 7. Фундамент / Bi- vs Cross-encoder"},
+    {n:"ANN-индекс", d:"ближайшие соседи без полного перебора",
+     t:"FAISS: HNSW · IVF · PQ",
+     x:"как устроены → 7. Фундамент / ANN-индексы"},
+    {n:"Метрика стадии: Recall@k", d:"попал ли правильный документ в топ-k. Точный порядок здесь не важен — важно не потерять"}
   ]},
 
-  {n:"ЧТО МЕНЯЕТСЯ МЕЖДУ СЕМЕЙСТВАМИ", d:"FFN, LayerNorm, residual, позиционное кодирование — идентичны везде. Различий ровно четыре", c:[
-
-    {n:"1. Маска внимания", d:"единственное изменение внутри самой формулы attention", c:[
-      {n:"Двунаправленная — encoder", d:"маски нет вообще. Токен i видит все токены, включая будущие. Матрица QKᵀ заполнена целиком"},
-      {n:"Каузальная — decoder", d:"верхний треугольник матрицы QKᵀ забивается −∞ ДО softmax. После softmax там нули → токен i видит только токены ≤ i"},
-      {n:"Реализация", m:1, d:"scores = QKᵀ/√d;  scores.masked_fill_(mask, -inf);  softmax(scores)@V — вот и вся разница между BERT и GPT в коде"}
-    ]},
-
-    {n:"2. Задача претрейна — прямое следствие маски", d:"не независимый выбор: маска физически определяет, какую задачу можно поставить", c:[
-      {n:"Видишь будущее → CLM невозможен", d:"предсказывать следующий токен, видя его же, — тривиальное списывание. Поэтому encoder обучают на MLM: прячем ~15% токенов и восстанавливаем"},
-      {n:"Не видишь будущее → CLM возможен", d:"и лосс считается сразу на ВСЕХ позициях за один прогон"},
-      {n:"Почему decoder-only выиграл гонку масштаба", d:"MLM даёт обучающий сигнал с 15% токенов за проход, CLM — со 100%. При равном компьюте decoder видит примерно в 6 раз больше сигнала. Отсюда весь бум LLM"}
-    ]},
-
-    {n:"3. Количество подслоёв в блоке", c:[
-      {n:"Encoder-блок: 2 подслоя", d:"двунаправленный self-attention → FFN"},
-      {n:"Decoder-блок в decoder-only: 2 подслоя", d:"каузальный self-attention → FFN"},
-      {n:"Decoder-блок в encoder-decoder: 3 подслоя", d:"каузальный self-attention → CROSS-attention → FFN. Третий подслой не существует больше нигде"}
-    ]},
-
-    {n:"Cross-attention — единственное место, где встречаются две последовательности", d:"откуда берутся Q, K, V — вот вторая структурная разница помимо маски", c:[
-      {n:"Self-attention", m:1, d:"Q, K, V — три проекции ОДНОГО и того же входа"},
-      {n:"Cross-attention", m:1, d:"Q из декодера (что уже написали), K и V из выхода энкодера (что прочитали). Декодер «спрашивает» у входного текста"}
-    ]},
-
-    {n:"4. Выходная голова", c:[
-      {n:"Encoder-only", d:"голова под задачу: классификатор поверх [CLS], token classification на каждый токен, MLM-голова при претрейне. Головы меняются, тело одно"},
-      {n:"Decoder-only и encoder-decoder", d:"LM-голова: линейная проекция в размер словаря + softmax. Выход — распределение по всем словам языка"}
-    ]},
-
-    {n:"Практические следствия — то, что спрашивают", c:[
-      {n:"KV-cache работает только с каузальной маской", d:"прошлые K и V не меняются от добавления нового токена. При двунаправленном внимании добавление токена меняет представления ВСЕХ токенов → пришлось бы пересчитывать всё. Поэтому BERT физически не может генерировать быстро, даже если приделать LM-голову"},
-      {n:"Encoder отдаёт вектор, decoder отдаёт токен", d:"поэтому эмбеддинги для поиска снимают с энкодера, а текст пишут декодером"},
-      {n:"Encoder-decoder дороже вдвое", d:"два стека параметров плюс cross-attention. Оправдан, когда вход и выход — реально разные тексты (перевод, детокс, суммаризация)"},
-      {n:"Decoder-only умеет всё то же", d:"перевод и суммаризацию можно делать промптом. Поэтому seq2seq постепенно вытесняется — но на узкой задаче маленький ruT5 всё ещё бьёт большую LLM по цене"}
-    ]}
+  {n:"Стадия 2 · Ранжирование", d:"сотня кандидатов → точный порядок", c:[
+    {n:"Cross-encoder", d:"запрос и документ в одну модель, скор на пару. Дорого, но кандидатов уже мало",
+     t:"дообучение: sentence-transformers CrossEncoder"},
+    {n:"Learning to Rank на фичах", d:"бустинг над сотнями признаков (тексты, клики, свежесть). До сих пор рабочая лошадка больших поисков",
+     t:"LambdaMART · CatBoost YetiRank (родное яндексовое)"},
+    {n:"Метрика стадии: NDCG@k, MRR", d:"теперь важен именно порядок"}
   ]},
 
-  {n:"Семейство A — Encoder-only", b:"enc", d:"читает текст целиком в обе стороны. Понимает, но НЕ генерирует", c:[
-    {n:"Как обучается", d:"MLM — прячем 15% токенов и просим восстановить. Двунаправленность возможна именно потому, что мы не предсказываем следующий токен"},
-    {n:"Модели", c:[
-      {n:"BERT", m:1, b:"enc", d:"2018. MLM + Next Sentence Prediction. Bidirectional Encoder Representations from Transformers — декодера нет"},
-      {n:"RoBERTa", m:1, b:"enc", d:"убрали NSP, больше данных и дольше учили. Тот же BERT, но лучше"},
-      {n:"ALBERT", m:1, b:"enc", d:"общие веса между слоями — меньше параметров"},
-      {n:"DeBERTa", m:1, b:"enc", d:"раздельное кодирование содержания и позиции. Долго держал SOTA на GLUE"},
-      {n:"ELECTRA", m:1, b:"enc", d:"учится отличать подменённые токены. Эффективнее MLM по вычислениям"},
-      {n:"DistilBERT", m:1, b:"enc", d:"дистилляция BERT: 40% меньше, 60% быстрее, ~97% качества"},
-      {n:"ModernBERT", m:1, b:"enc", d:"2024. BERT с RoPE, длинным контекстом и современным рецептом обучения"}
-    ]},
-    {n:"Русские энкодеры", b:"ru", c:[
-      {n:"ruBERT / ruRoBERTa", m:1, b:"ru", d:"DeepPavlov и ai-forever. Рабочая лошадка для русской классификации"},
-      {n:"rubert-tiny2", m:1, b:"ru", d:"29M параметров. Помещается куда угодно, дообучается за минуты — идеален для учебных проектов"},
-      {n:"FRED-T5, ruELECTRA", m:1, b:"ru", d:"альтернативы от Sber"}
-    ]},
-    {n:"Что на нём делают", c:[
-      {n:"Классификация текста", b:"sys", d:"тональность, спам, тематика, токсичность"},
-      {n:"NER / token classification", b:"sys", d:"голова на каждый токен, BIO-разметка"},
-      {n:"Sentence embeddings", b:"sys", d:"→ ветка 4, это основа семантического поиска"},
-      {n:"Cross-encoder реранкинг", b:"sys", d:"→ ветка 4"}
-    ]}
+  {n:"Обучение своего эмбеддера", d:"когда готовые модели не знают твой домен", c:[
+    {n:"Contrastive learning", d:"тянем позитивные пары друг к другу, расталкиваем негативные",
+     t:"sentence-transformers · MultipleNegativesRankingLoss (in-batch negatives — бесплатные негативы из батча)"},
+    {n:"Hard negative mining — главная ловушка", d:"негативы из топа выдачи повышают качество, но в топе полно НЕразмеченных правильных ответов → модель учится отталкивать правду. На вьетнамском лигал-поиске hard-mining уронил MRR с 0.56 до 0.27, semi-hard поднял до 0.77 — разброс ×3 от одного решения по сэмплированию",
+     l:"docs sentence-transformers / mine_hard_negatives — там прямое предупреждение"},
+    {n:"Оценка эмбеддера", t:"ruMTEB — 23 русские задачи, публичный лидерборд"}
   ]},
 
-  {n:"Семейство B — Decoder-only", b:"dec", d:"читает слева направо, предсказывает следующий токен. Всё умеет через генерацию", c:[
-    {n:"Как обучается", d:"CLM — предсказать следующий токен. Простейшая задача, но при масштабе даёт всё остальное"},
-    {n:"Модели", c:[
-      {n:"GPT-1 → GPT-4+", m:1, b:"dec", d:"OpenAI. Линия, на которой открыли, что масштаб решает"},
-      {n:"LLaMA", m:1, b:"dec", d:"Meta. Открытые веса — база для половины опенсорса"},
-      {n:"Mistral / Mixtral", m:1, b:"dec", d:"компактные и сильные; Mixtral — MoE"},
-      {n:"Qwen", m:1, b:"dec", d:"Alibaba. Один из лучших в мультиязычности, включая русский"},
-      {n:"Gemma, DeepSeek, Phi", m:1, b:"dec", d:"остальная экосистема открытых весов"}
-    ]},
-    {n:"Русские LLM", b:"ru", c:[
-      {n:"YandexGPT", m:1, b:"ru", d:"закрытая, через API"},
-      {n:"GigaChat", m:1, b:"ru", d:"Sber, через API"},
-      {n:"ruGPT-3, Vikhr, Saiga", m:1, b:"ru", d:"открытые веса, можно дообучать самому"}
-    ]},
-    {n:"Механика генерации", d:"здесь много вопросов на собеседовании", c:[
-      {n:"Стратегии сэмплирования", c:[
-        {n:"Greedy", d:"всегда самый вероятный токен. Детерминированно и уныло"},
-        {n:"Beam search", d:"держим k гипотез. Хорошо для перевода, плохо для свободного текста"},
-        {n:"Top-k / top-p (nucleus)", d:"отсекаем хвост распределения и семплируем из остатка"},
-        {n:"Temperature", d:"делит логиты. <1 — консервативнее, >1 — разнообразнее"}
-      ]},
-      {n:"KV-cache", d:"ключи и значения прошлых токенов не пересчитываются. Причина, по которой первый токен медленный, а остальные быстрые"},
-      {n:"Speculative decoding", d:"маленькая модель предлагает несколько токенов, большая проверяет пачкой"}
-    ]},
-    {n:"Mixture of Experts", d:"на каждый токен активна лишь часть параметров. Много весов, мало вычислений"}
-  ]},
-
-  {n:"Семейство C — Encoder-Decoder (seq2seq)", b:"s2s", d:"читает одно, пишет другое. Вход и выход — разные тексты", c:[
-    {n:"Как обучается", d:"denoising / span corruption — портим вход, просим восстановить"},
-    {n:"Модели", c:[
-      {n:"T5", m:1, b:"s2s", d:"всё сводится к text-to-text: и классификация, и перевод — просто разные префиксы"},
-      {n:"BART", m:1, b:"s2s", d:"denoising autoencoder. Силён в суммаризации"},
-      {n:"mT5 / mBART", m:1, b:"s2s", d:"мультиязычные версии"},
-      {n:"Flan-T5", m:1, b:"s2s", d:"T5 после instruction tuning"}
-    ]},
-    {n:"Русские seq2seq", b:"ru", c:[
-      {n:"ruT5", m:1, b:"ru", d:"базовая модель для русских задач переписывания"},
-      {n:"ruBART, FRED-T5", m:1, b:"ru", d:"альтернативы"}
-    ]},
-    {n:"Задачи", c:[
-      {n:"Перевод", b:"sys"},
-      {n:"Суммаризация", b:"sys"},
-      {n:"Перефразирование", b:"sys"},
-      {n:"Детоксификация", b:"sys", d:"переписать токсичный текст в нейтральный, сохранив смысл. RuParaDetox, RUSSE-2022"}
-    ]}
-  ]}
+  {n:"Типовой пет-проект", d:"тот же sberquad: дообучить rubert-tiny2 (29M) и сравнить с zero-shot e5-base (280M) — побеждает ли маленькая дообученная большую готовую при ×20 меньшей латентности"}
 ]},
 
-/* ─────────────────────────── 3 ─────────────────────────── */
-{n:"Обучение и адаптация", a:"--b3", d:"жизненный цикл модели: от случайных весов до модели под твою задачу", c:[
+/* ══════════ 3. Агент ══════════ */
+{n:"LLM-агент", a:"--b3", d:"Cursor, Claude Code, саппорт-боты, «сделай за меня»: LLM в цикле думает → вызывает инструмент → читает результат → повторяет, пока задача не решена. Стек 2026 устоялся в слои — и наконец появились стандартные разъёмы между ними", c:[
 
-  {n:"Стадии", c:[
-    {n:"Pretraining", d:"месяцы на тысячах GPU, огромный неразмеченный корпус. Ты этого делать не будешь — но должен понимать, что происходит"},
-    {n:"Continued pretraining", d:"доучиваем базовую модель на своём домене тем же лоссом. Помогает, когда домен сильно отличается"},
-    {n:"SFT — supervised fine-tuning", d:"пары «вход → правильный выход». Это то, что делаешь ты"},
-    {n:"Alignment", d:"учим модель отвечать так, как хотят люди", c:[
-      {n:"RLHF", d:"обучаем reward-модель на человеческих предпочтениях, потом PPO. Сложно и нестабильно"},
-      {n:"DPO", d:"тот же эффект напрямую из пар предпочтений, без reward-модели. Сейчас основной путь"},
-      {n:"ORPO, KTO", d:"более поздние упрощения"}
-    ]}
+  {n:"Цикл агента (ReAct)", d:"reasoning + acting: модель пишет рассуждение и вызов инструмента, код исполняет, результат возвращается в контекст. Весь «агент» — это while-цикл вокруг LLM", c:[
+    {n:"Function calling / structured output", d:"модель возвращает строгий JSON с именем функции и аргументами, а не свободный текст. Движки валидируют по схеме прямо при генерации",
+     x:"как модель заставляют писать валидный JSON → 5. Инференс / structured output"}
   ]},
 
-  {n:"PEFT — дообучение без полного файнтюна", d:"как учить большую модель на одной видеокарте", c:[
-    {n:"Full fine-tuning", d:"меняем все веса. Нужна память под модель + градиенты + состояния оптимизатора ≈ ×4"},
-    {n:"Заморозка + голова", d:"самое простое: энкодер заморожен, учится только классификатор сверху"},
-    {n:"LoRA", d:"вместо W учим низкоранговую добавку ΔW = BA. Обучаемых параметров <1%, качество почти как у full FT"},
-    {n:"QLoRA", d:"LoRA поверх 4-битной замороженной модели. 7B влезает в бесплатный Colab"},
-    {n:"Adapters, Prefix-tuning, P-tuning", d:"альтернативные способы вставить обучаемые параметры"}
+  {n:"Слои стека", d:"снизу вверх — на каждый слой свой инструмент", c:[
+    {n:"Модель", t:"API: Claude, GPT, YandexGPT · self-host: Qwen, Llama через vLLM/SGLang"},
+    {n:"Гейтвей", d:"единый OpenAI-совместимый API, роутинг между провайдерами, фолбэки, лимиты",
+     t:"LiteLLM · OpenRouter"},
+    {n:"Оркестрация", d:"кто управляет циклом и состоянием. Два лагеря 2026: граф-фреймворк — или тонкая обёртка над SDK провайдера + MCP (команды, наевшиеся абстракций, ушли сюда)",
+     t:"LangGraph 1.0 (Uber, LinkedIn, Klarna) · CrewAI · provider SDK: OpenAI Agents, Claude Agent SDK"},
+    {n:"Инструменты · MCP", d:"Model Context Protocol — стандартный разъём агент↔инструмент. К 2026 все крупные фреймворки поддерживают нативно. Один MCP-сервер (поиск, БД, браузер) втыкается в любой стек — это слой, который переносится между фреймворками",
+     l:"spec на modelcontextprotocol.io + написать свой сервер на 50 строк"},
+    {n:"Память", d:"короткая = окно контекста; длинная = внешнее хранилище фактов о пользователе поверх векторной БД",
+     t:"Mem0 · Letta"},
+    {n:"Observability и evals", d:"трейс каждого шага цикла, скоринг прогонов, регрессии. Слой, которого не было в 2024 и который теперь главный разрыв между демкой и продом",
+     t:"Langfuse · LangSmith · бенчи агентов: GAIA2, tau2-bench"}
   ]},
 
-  {n:"Сжатие и ускорение", d:"то, что превращает ноутбук в продакшн", c:[
-    {n:"Knowledge distillation", d:"большая модель-учитель размечает данные, маленькая ученик повторяет её выходы"},
-    {n:"Quantization", d:"веса из fp16 в int8/int4. GPTQ, AWQ, bitsandbytes"},
-    {n:"Pruning", d:"выкидываем неважные веса или целые головы"},
-    {n:"ONNX / TensorRT", d:"экспорт графа для быстрого инференса вне PyTorch"},
-    {n:"vLLM, TGI", d:"серверы для LLM: непрерывный батчинг, PagedAttention"}
-  ]},
+  {n:"Guardrails", d:"фильтры входа/выхода, human-in-the-loop на опасных действиях, песочница для кода"},
 
-  {n:"Промптинг — адаптация без обучения", c:[
-    {n:"Zero-shot / few-shot", d:"примеры прямо в промпте"},
-    {n:"Chain-of-Thought", d:"просим рассуждать по шагам"},
-    {n:"Structured output / function calling", d:"заставляем модель отвечать валидным JSON или вызывать инструмент"}
-  ]}
+  {n:"Почему длинный диалог дорожает", d:"каждый ход тащит всю историю через KV-cache; префиксное кэширование (RadixAttention) чинит именно это",
+   x:"механика → 5. Инференс / KV-cache и батчинг"},
+
+  {n:"Типовой пет-проект", d:"агент над своим API (например, твой URL-shortener): 3-4 инструмента через MCP, цикл на голом SDK без фреймворка — чтобы увидеть, что внутри LangGraph нет магии"}
 ]},
 
-/* ─────────────────────────── 4 ─────────────────────────── */
-{n:"Эмбеддинги и поиск", a:"--b4", d:"здесь живёт FAISS. Ядро семантического поиска и RAG", c:[
+/* ══════════ 4. Файнтюн ══════════ */
+{n:"Свой файнтюн модели", a:"--b4", d:"Порядок эскалации 2026, высечен в камне: промпт → RAG → файнтюн. Дообучать — только когда первые два не дали тон/формат/домен. Зато теперь это операция на один вечер и одну видеокарту", c:[
 
-  {n:"Как получить вектор предложения", c:[
-    {n:"Пулинг из энкодера", d:"BERT выдаёт вектор на каждый токен — их надо свернуть в один", c:[
-      {n:"CLS-токен", d:"берём первый служебный. Без дообучения работает плохо"},
-      {n:"Mean pooling", d:"среднее по токенам с учётом маски. Обычно лучше CLS"},
-      {n:"Max pooling", d:"реже, но встречается"}
-    ]},
-    {n:"Обучение эмбеддера", c:[
-      {n:"Sentence-BERT (SBERT)", d:"сиамская схема: два прогона одной модели, лосс на близость. Работа, с которой всё началось"},
-      {n:"Contrastive learning", d:"притягиваем похожие пары, отталкиваем непохожие"},
-      {n:"In-batch negatives", d:"остальные примеры в батче считаем негативами. Бесплатно и эффективно — MultipleNegativesRankingLoss"},
-      {n:"Hard negative mining", d:"негативы из топа выдачи. Даёт прирост, но осторожно: в топе полно неразмеченных правильных ответов, и модель учится отталкивать их. Semi-hard часто безопаснее"},
-      {n:"SimCSE", d:"позитивная пара = один текст, прогнанный дважды с разным dropout. Без разметки вообще"},
-      {n:"Matryoshka", d:"обучение так, что вектор можно обрезать с конца почти без потери качества"}
-    ]},
-    {n:"Готовые эмбеддеры", c:[
-      {n:"E5 / multilingual-e5", m:1, d:"сильный мультиязычный baseline, требует префиксов query: и passage:"},
-      {n:"BGE / bge-m3", m:1, d:"плотный + разреженный + multi-vector в одной модели"},
-      {n:"GTE, Qwen3-Embedding", m:1, d:"актуальные альтернативы"},
-      {n:"USER-bge-m3, ruSBERT, GigaEmbeddings", m:1, b:"ru", d:"русскоязычные"}
-    ]},
-    {n:"ruMTEB / MTEB", b:"met", d:"бенчмарки эмбеддеров. ruMTEB — 23 задачи на русском, есть публичный лидерборд"}
+  {n:"Когда файнтюн оправдан", d:"пиннинг стиля и формата · доменная лексика · дистилляция большой модели в маленькую дешёвую. НЕ для «добавить знания» — для знаний RAG"},
+
+  {n:"1 · Данные", d:"500–2000 вручную выверенных примеров в ChatML — типовой объём. Качество бьёт количество", c:[
+    {n:"Chat template", d:"у каждой модели свои спецтокены (Llama ≠ Qwen ≠ Mistral); неправильный шаблон тихо убивает качество"},
+    {n:"Маскирование лосса", d:"учимся только на ответах ассистента, промпт маскируется — иначе модель учится предсказывать собственный вход"},
+    {n:"Синтетика", d:"стандарт 2026: фронтир-модель генерит пары как разметчик, ты фильтруешь. Это дистилляция через данные"}
   ]},
 
-  {n:"Две схемы сопоставления", d:"главная развилка, из которой растёт двухстадийная архитектура", c:[
-    {n:"Bi-encoder", b:"enc", d:"запрос и документ кодируются ОТДЕЛЬНО, сравниваются векторы. Документы можно посчитать заранее → быстро, но модель не видит пару целиком"},
-    {n:"Cross-encoder", b:"enc", d:"запрос и документ склеиваются и подаются в модель вместе. Точнее, но заранее ничего не посчитаешь → только на маленьком списке кандидатов"},
-    {n:"ColBERT / late interaction", d:"компромисс: вектор на каждый токен, дешёвое взаимодействие в конце. Точнее bi-encoder, дешевле cross-encoder, но индекс тяжёлый"}
+  {n:"2 · Метод: QLoRA — дефолт", d:"база квантуется в 4-bit NF4 и замораживается, поверх учатся LoRA-адаптеры. 7B влезает в бесплатный Colab", c:[
+    {n:"LoRA в одну строку", d:"вместо всей матрицы W учим добавку ΔW = B·A низкого ранга (r=16 — стандарт). Обучаемых параметров <1%, после обучения адаптер вливается в веса",
+     l:"статья LoRA (Hu et al.) — читается за вечер, спрашивают постоянно"}
   ]},
 
-  {n:"Лексический поиск", d:"без нейросетей. Не пропускай — он часто выигрывает", c:[
-    {n:"Инвертированный индекс", b:"idx", d:"слово → список документов, где оно встречается"},
-    {n:"BM25", d:"формула релевантности поверх индекса. Обязательный baseline любого поискового проекта"},
-    {n:"Lucene / Elasticsearch / OpenSearch", d:"промышленные реализации"}
+  {n:"3 · Тулинг", d:"три инструмента, выбор по железу", c:[
+    {n:"Unsloth", d:"кастомные ядра: ×2 быстрее, −60% VRAM. Дефолт для 1 GPU и Colab — твой случай", t:"unsloth + SFTTrainer"},
+    {n:"Axolotl", d:"YAML-конфиг = весь пайплайн; multi-GPU, прод"},
+    {n:"TRL v1.0", d:"канонический HF-стек: SFT/DPO/KTO/GRPO/Reward-трейнеры в одной библиотеке"}
   ]},
 
-  {n:"ANN — поиск ближайших соседей", b:"idx", d:"ЗДЕСЬ ЖИВЁТ FAISS. Задача: найти ближайшие векторы, не перебирая все", c:[
-    {n:"Точный поиск", c:[
-      {n:"Flat / brute force", b:"idx", d:"честный перебор всех векторов. O(N) — медленно, но это эталон качества, с которым сравнивают приближённые методы"}
-    ]},
-    {n:"Приближённый поиск", d:"жертвуем долей процента recall ради скорости в сотни раз", c:[
-      {n:"IVF", b:"idx", d:"кластеризуем векторы, при запросе смотрим только несколько ближайших ячеек. Параметр nprobe — компромисс скорость/качество"},
-      {n:"HNSW", b:"idx", d:"многослойный граф соседей, спуск от разреженных слоёв к плотным. Самый популярный сегодня"},
-      {n:"PQ / OPQ", b:"idx", d:"product quantization: вектор режется на куски, каждый заменяется кодом из словаря. Память падает в десятки раз"},
-      {n:"IVF + PQ", b:"idx", d:"стандартная связка для больших корпусов: кластеры + сжатие"}
-    ]},
-    {n:"Метрики близости", d:"cosine, dot product, L2. Для нормированных векторов cosine и dot эквивалентны"},
-    {n:"Библиотеки", c:[
-      {n:"FAISS", m:1, b:"idx", d:"Meta. Не база данных, а библиотека индексов — живёт в памяти твоего процесса"},
-      {n:"HNSWlib, ScaNN, Annoy", m:1, b:"idx", d:"альтернативы"}
-    ]},
-    {n:"Векторные БД", d:"FAISS + персистентность + фильтрация + API", c:[
-      {n:"Qdrant, Milvus, Weaviate, Chroma", m:1, b:"idx"},
-      {n:"pgvector", m:1, b:"idx", d:"расширение PostgreSQL. Если у тебя уже есть постгрес — часто достаточно его"}
-    ]}
+  {n:"4 · Alignment поверх SFT", d:"если нужно не «уметь», а «предпочитать»", c:[
+    {n:"DPO", d:"пары «лучше/хуже» без reward-модели и RL. Основной путь 2026"},
+    {n:"GRPO", d:"когда ответ проверяем кодом (математика, формат, тесты) — метод DeepSeek, эталонная реализация в TRL"}
   ]},
 
-  {n:"Гибридный поиск", d:"лексика ловит термины и имена, векторы ловят перефразировки. Вместе почти всегда лучше", c:[
-    {n:"RRF — reciprocal rank fusion", d:"складываем 1/(k+rank) из обоих списков. Не требует калибровки скоров — поэтому и популярен"},
-    {n:"Взвешенная сумма", d:"нужно нормировать скоры, что нетривиально"}
-  ]},
+  {n:"5 · Оценка — узкое место, не обучение", d:"метрика своей задачи + MMLU-дельта (не отупела ли база) + приватный regression set, который модель не видела. Низкий train loss ≠ успех"},
 
-  {n:"Learning to Rank", d:"когда кандидаты уже отобраны и надо расставить их точно", c:[
-    {n:"Pointwise / pairwise / listwise", d:"три постановки: оценить документ, сравнить пару, оптимизировать весь список"},
-    {n:"LambdaMART", d:"классика на градиентном бустинге"},
-    {n:"CatBoost YetiRank", d:"яндексовый листвайз-лосс. Стоит знать по названию, если идёшь в Поиск"}
-  ]},
+  {n:"6 · Экспорт", d:"merge адаптера → GGUF для llama.cpp/Ollama (локально) или как есть в vLLM (сервер)",
+   x:"что дальше с весами → 5. Инференс"},
 
-  {n:"Метрики поиска", b:"met", c:[
-    {n:"Recall@k", b:"met", d:"попал ли правильный документ в топ-k. Главная метрика ПЕРВОЙ стадии"},
-    {n:"MRR", b:"met", d:"среднее от 1/позиция первого правильного"},
-    {n:"NDCG@k", b:"met", d:"учитывает и позицию, и градацию релевантности. Главная метрика ВТОРОЙ стадии"},
-    {n:"MAP, Precision@k", b:"met"},
-    {n:"pFound", b:"met", d:"яндексовая метрика с моделью поведения пользователя"}
-  ]}
+  {n:"Типовой пет-проект", d:"твой ruT5-детокс — ровно эта ветка, только seq2seq. Второй заход: QLoRA на Qwen-7B под русский домен через Unsloth в Colab"}
 ]},
 
-/* ─────────────────────────── 5 ─────────────────────────── */
-{n:"Системы: как из кубиков собирают продукт", a:"--b5", d:"модель — не система. Здесь видно, как ветки 2 и 4 складываются в пайплайн", c:[
+/* ══════════ 5. Инференс ══════════ */
+{n:"Инференс в проде", a:"--b5", d:"Превратить веса в токены/сек за минимальные деньги. Отдельная инженерная дисциплина: движок выбирают так же тщательно, как модель. Три движка делят рынок 2026", c:[
 
-  {n:"Классификация текста", b:"sys", d:"самый простой полный пайплайн", c:[
-    {n:"1. Токенизатор → 2. encoder → 3. пулинг → 4. линейная голова → 5. softmax"},
-    {n:"Модель", d:"любой encoder-only: ruBERT, rubert-tiny2"},
-    {n:"Метрики", b:"met", d:"accuracy, F1 (macro при дисбалансе), ROC-AUC"}
+  {n:"Движки", c:[
+    {n:"vLLM", d:"дефолт индустрии, самое широкое покрытие моделей (100+), максимальный throughput на больших батчах. OpenAI-совместимый API из коробки",
+     t:"vllm serve model --performance-mode throughput|interactivity"},
+    {n:"SGLang", d:"побеждает на латентности и повторяющихся префиксах (RadixAttention автоматически кэширует общие начала). Выбор для агентов: общий системный промпт + растущая история — его сценарий"},
+    {n:"TensorRT-LLM", d:"NVIDIA-нативный, компиляция модели, +8–13% к vLLM на H100. Цена — лок-ин и время компиляции"},
+    {n:"Смешивают", d:"прод-паттерн: оба движка за гейтвеем LiteLLM, роутинг по типу запроса — код не знает, кто ответил"}
   ]},
 
-  {n:"NER / извлечение сущностей", b:"sys", c:[
-    {n:"encoder → голова на КАЖДЫЙ токен → BIO-схема", d:"B-PER, I-PER, O — начало сущности, продолжение, вне сущности"},
-    {n:"Метрика", b:"met", d:"entity-level F1, а не token-level — сущность засчитывается только целиком"},
-    {n:"Русские данные", b:"ru", d:"Nerus, RuNNE, Collection3"}
+  {n:"Механизмы, дающие скорость", d:"то, что реально спрашивают", c:[
+    {n:"KV-cache", d:"K и V прошлых токенов не пересчитываются. Отсюда асимметрия: первый токен медленный (prefill, считаем всё), остальные быстрые (decode, по одному). Память под кэш — главный лимит параллельных запросов",
+     x:"почему кэш возможен только у декодера → 7. Фундамент / Три маски"},
+    {n:"PagedAttention", d:"KV-cache бьётся на страницы как виртуальная память ОС — нет фрагментации, влезает больше запросов. Изобретение vLLM"},
+    {n:"Continuous batching", d:"новые запросы подсаживаются в батч на лету, не ждут конца самого длинного. Все три движка"},
+    {n:"Speculative decoding", d:"мелкая модель предлагает k токенов, большая проверяет за один проход"},
+    {n:"Structured output", d:"грамматика/JSON-схема фильтрует допустимые токены прямо при генерации — сильная сторона SGLang, отсюда его имя"},
+    {n:"Квантизация", d:"FP8 — прод-стандарт на H100; INT4 (GPTQ/AWQ) — когда память дороже качества"}
   ]},
 
-  {n:"Семантический поиск", b:"sys", d:"двухстадийная воронка — то, что ты строишь", c:[
-    {n:"1. Чанкинг", d:"режем документы на куски, которые влезают в модель. Размер и перекрытие — реальные гиперпараметры"},
-    {n:"2. Индексация", d:"bi-encoder кодирует все чанки → векторы → FAISS. Делается ОДИН раз офлайн"},
-    {n:"3. Retrieval", d:"запрос → вектор → ANN → топ-100 кандидатов"},
-    {n:"4. Reranking", d:"cross-encoder переоценивает 100 кандидатов → топ-10"},
-    {n:"5. Оценка", b:"met", d:"Recall@100 для стадии 3, NDCG@10 для стадии 4. И обязательно baseline BM25"}
-  ]},
+  {n:"Экономика", d:"две метрики: TTFT (время первого токена, — UX) и tokens/sec (— пропускная). Prefill упирается в вычисления, decode — в память. Оптимизируешь одно — жертвуешь другим"},
 
-  {n:"RAG", b:"sys", d:"семантический поиск + LLM сверху. Самая востребованная связка в индустрии", c:[
-    {n:"Фаза индексации (офлайн)", d:"загрузка → парсинг (в т.ч. OCR) → чанкинг → эмбеддинг → векторный индекс"},
-    {n:"Фаза ответа (онлайн)", c:[
-      {n:"Обработка запроса", d:"переформулировка, разложение на подзапросы, HyDE"},
-      {n:"Retrieval", d:"гибрид: BM25 + dense"},
-      {n:"Reranking", d:"cross-encoder режет мусор перед LLM — контекст дорогой"},
-      {n:"Сборка промпта", d:"инструкция + найденные куски + запрос"},
-      {n:"Генерация", d:"LLM отвечает ТОЛЬКО по контексту"},
-      {n:"Постобработка", d:"цитаты, ссылки на источники, отказ при отсутствии ответа"}
-    ]},
-    {n:"Где ломается", d:"плохой чанкинг, потеря контекста на границах, галлюцинации при пустом retrieval, устаревший индекс"},
-    {n:"Метрики", b:"met", d:"RAGAS: faithfulness, context precision/recall, answer relevance"}
-  ]},
+  {n:"Локальный хвост", d:"llama.cpp / Ollama — GGUF на CPU/Mac; не прод, но твой инструмент для щупания моделей"},
 
-  {n:"Диалоговый агент", b:"sys", c:[
-    {n:"LLM + системный промпт", d:"роль и правила"},
-    {n:"Tool use / function calling", d:"модель возвращает вызов функции, код исполняет, результат возвращается в контекст"},
-    {n:"Память", d:"короткая — окно контекста; длинная — векторное хранилище прошлых диалогов"},
-    {n:"Планирование", d:"ReAct: рассуждение и действие чередуются"},
-    {n:"Guardrails", d:"фильтры на входе и выходе, отказ от опасных запросов"}
-  ]},
-
-  {n:"Инженерная обвязка", d:"то, что отличает ML-инженера от автора ноутбуков", c:[
-    {n:"Сервинг", d:"FastAPI, батч vs realtime, async"},
-    {n:"Воспроизводимость", d:"MLflow, W&B, DVC, конфиги"},
-    {n:"Мониторинг", d:"дрифт данных и предсказаний, деградация качества"},
-    {n:"ML System Design", d:"отдельный блок на собеседовании: данные → фичи → модель → метрики → онлайн → мониторинг"}
-  ]}
+  {n:"Типовой пет-проект", d:"поднять Qwen-7B в vLLM на Colab GPU, замерить TTFT и throughput при 1/8/32 параллельных запросах, включить prefix caching и показать разницу на диалогах. Мало у кого из студентов есть такой замер"}
 ]},
 
-/* ─────────────────────────── 6 ─────────────────────────── */
-{n:"Оценка качества", a:"--b6", d:"чаще всего заваливают именно здесь: модель обучил, а померить правильно не смог", c:[
+/* ══════════ 6. Классика ══════════ */
+{n:"Классический NLP-сервис", a:"--b6", d:"Не умер и не умрёт: модерация, роутинг тикетов, NER, антиспам. Когда меток много, а задача узкая — маленький encoder бьёт LLM по цене в ~100 раз при равном качестве и латентности 5мс. Огромная доля реального NLP-headcount", c:[
 
-  {n:"По типу задачи", c:[
-    {n:"Классификация", b:"met", d:"accuracy, precision/recall, F1, ROC-AUC, PR-AUC (при сильном дисбалансе честнее ROC)"},
-    {n:"Генерация", b:"met", c:[
-      {n:"BLEU", b:"met", d:"совпадение n-грамм. Для перевода"},
-      {n:"ROUGE", b:"met", d:"полнота по n-граммам. Для суммаризации"},
-      {n:"chrF", b:"met", d:"по символьным n-граммам — лучше для морфологически богатых языков, то есть для русского"},
-      {n:"BERTScore", b:"met", d:"близость эмбеддингов, а не букв. Ловит перефразировки"},
-      {n:"Perplexity", b:"met", d:"насколько модель «удивлена» текстом. Мера языковой модели, не качества ответа"},
-      {n:"Human eval", b:"met", d:"всё ещё золотой стандарт"}
-    ]},
-    {n:"Поиск", b:"met", d:"→ ветка 4"}
+  {n:"Пайплайн", c:[
+    {n:"1 · Разметка", d:"паттерн 2026: LLM размечает черновик, человек валидирует. Это опять дистилляция — большая модель → датасет → маленькая"},
+    {n:"2 · Файнтюн энкодера", d:"голова поверх ruBERT: классификация — на [CLS], NER — на каждый токен (BIO-схема)",
+     t:"transformers Trainer · ru: rubert-tiny2 (29M, минуты в Colab), ruBERT-base",
+     x:"почему encoder понимает, но не пишет → 7. Фундамент / Три маски"},
+    {n:"3 · Оптимизация", d:"экспорт из PyTorch, квантизация — латентность падает в разы",
+     t:"ONNX Runtime · дистилляция в ещё меньшую"},
+    {n:"4 · Сервинг", d:"обычный REST-сервис, никакой LLM-инфраструктуры не нужно",
+     t:"FastAPI + Docker — твой стек уже готов"}
   ]},
 
-  {n:"Бенчмарки", c:[
-    {n:"Английские", d:"GLUE, SuperGLUE, MTEB, MMLU, HELM"},
-    {n:"Русские", b:"ru", d:"Russian SuperGLUE, MERA, ruMTEB, RuParaDetox, SberQuAD, MIRACL-ru"}
+  {n:"Метрики", d:"классификация: F1 (macro при дисбалансе), PR-AUC · NER: entity-level F1 — сущность засчитывается только целиком"},
+
+  {n:"Типовой пет-проект", d:"классификатор токсичности на rubert-tiny2 → ONNX → FastAPI → docker-compose → замер RPS. Закрывает вопрос «а вы деплоили?» одним репо"}
+]},
+
+/* ══════════ 7. Фундамент ══════════ */
+{n:"Общий фундамент", a:"--b7", d:"Сюда ведут стрелки из всех веток. Одна теория — шесть применений. Раскрывай узел, когда упёрся в него сверху, а не подряд", c:[
+
+  {n:"Как устроена LLM", d:"decoder-трансформер: текст → токены → N одинаковых блоков (attention + FFN) → вероятности следующего токена → сэмплирование → повтор", c:[
+    {n:"Токенизация BPE", d:"частые куски текста склеены в токены; словарь ~100k. Поэтому модель «видит» не буквы — отсюда провалы на арифметике и подсчёте букв"},
+    {n:"Блок: self-attention + FFN", d:"attention смешивает информацию между токенами (softmax(QKᵀ/√d)·V), FFN обрабатывает каждый токен отдельно и держит бОльшую часть параметров"},
+    {n:"Сэмплирование", d:"temperature, top-p — почему один вопрос даёт разные ответы",
+     l:"nanoGPT Karpathy — собрать GPT руками за выходные, лучшее вложение времени в понимание · Illustrated Transformer (Alammar)"}
   ]},
 
-  {n:"Ловушки", c:[
-    {n:"Загрязнение бенчмарков", d:"тест утёк в претрейн — цифры завышены"},
-    {n:"LLM-as-a-judge", d:"удобно, но судья предвзят: любит длинные ответы и свой собственный стиль"},
-    {n:"Офлайн ≠ онлайн", d:"метрика выросла, а пользователям хуже. Решается A/B-тестом"},
-    {n:"Утечки при сплите", d:"дубликаты между train и test, время перепутано"}
-  ]}
+  {n:"Три маски — три семейства", d:"один и тот же блок, разница только в том, кому видно будущее. Отсюда растёт ВСЁ выше", c:[
+    {n:"Encoder (BERT): маски нет", d:"токен видит всех соседей → лучшее понимание, но генерация невозможна (следующий токен был бы виден = списывание). Учится через MLM: прячем 15%, восстанавливаем. → используется в ветках 1, 2, 6"},
+    {n:"Decoder (GPT): каузальная маска", d:"верхний треугольник QKᵀ = −∞ до softmax → видно только назад → можно предсказывать следующий токен, лосс на 100% позиций за проход. Поэтому масштабировали именно эту ветку. → используется в 3, 4, 5"},
+    {n:"Encoder-decoder (T5): оба + cross-attention", d:"третий подслой: Q из декодера, K,V из энкодера. Оправдан, когда вход и выход — разные тексты (перевод, твой детокс)"},
+    {n:"KV-cache возможен только при каузальной маске", d:"прошлые K,V не меняются от нового токена. У BERT новый токен меняет представления всех — кэшировать нечего. Вся экономика ветки 5 растёт из этой строчки"}
+  ]},
+
+  {n:"Эмбеддер", d:"encoder + пулинг (mean по токенам) + contrastive-дообучение. Сырой BERT без дообучения даёт плохие sentence-векторы — прорыв SBERT был именно в сиамском дообучении",
+   l:"статья Sentence-BERT · MTEB paper"},
+
+  {n:"Bi- vs Cross-encoder", d:"bi: кодируем запрос и документ ОТДЕЛЬНО → векторы документов считаются заранее → быстро, но модель не видит пару. Cross: склеиваем и подаём вместе → точно, но заранее ничего не посчитать. Отсюда двухстадийность веток 1 и 2 — это не выбор, а следствие"},
+
+  {n:"ANN-индексы", d:"найти ближайшие векторы без O(N) перебора", c:[
+    {n:"Flat", d:"честный перебор — эталон качества для сравнения"},
+    {n:"HNSW", d:"многослойный граф соседей; самый популярный. Память ест, но быстрый"},
+    {n:"IVF", d:"кластеризация, смотрим только ближайшие ячейки (nprobe — ручка скорость/качество)"},
+    {n:"PQ", d:"сжатие: вектор режется на куски, каждый заменяется кодом. IVF+PQ — стандарт для очень больших корпусов",
+     l:"туториал FAISS wiki — с картинками, за вечер"}
+  ]},
+
+  {n:"Contrastive learning", d:"лосс тянет позитивные пары, толкает негативные; качество почти целиком определяется тем, ОТКУДА берутся негативы (in-batch → semi-hard → hard, по нарастанию риска). → используется в 1, 2 и в обучении CLIP"},
+
+  {n:"Что учить по порядку", d:"если совсем с нуля по этой ветке",
+   l:"1) Illustrated Transformer → 2) nanoGPT → 3) HF NLP course (гл. 1-7) → 4) собрать пет-проект из ветки 1 или 2 — теория без системы не запоминается"}
 ]}
 
 ];
 
 /* ── рендер ── */
-const ACC=["--b1","--b2","--b3","--b4","--b5","--b6"];
-const BADGE={enc:"enc",dec:"dec",s2s:"s2s",ru:"ru",idx:"idx",sys:"sys",met:"met"};
+const ACC=["--b1","--b2","--b3","--b4","--b5","--b6","--b7"];
 const tree=document.getElementById('tree');
 
 function build(node,depth,accent){
-  const acc = node.a || accent;
+  const acc=node.a||accent;
   const el=document.createElement('div');
   el.className='node'; el.dataset.depth=depth;
   el.style.setProperty('--accent',`var(${acc})`);
@@ -515,13 +342,15 @@ function build(node,depth,accent){
   row.className='row'+(node.c?' tog':'');
   const tw=document.createElement('span');
   tw.className='tw'; tw.textContent=node.c?'▸':'·';
-  const lbl=document.createElement('div');
-  lbl.className='lbl'+(node.m?' mono':'');
+  const lbl=document.createElement('div'); lbl.className='lbl';
   const nm=document.createElement('span'); nm.className='nm'; nm.textContent=node.n;
   lbl.appendChild(nm);
   if(node.d){const d=document.createElement('span'); d.className='d'; d.textContent=node.d; lbl.appendChild(d);}
+  if(node.t){const t=document.createElement('span'); t.className='tools'; t.textContent=node.t; lbl.appendChild(t);}
+  if(node.l){const l=document.createElement('span'); l.className='learn'; l.textContent=node.l; lbl.appendChild(l);}
+  if(node.x){const x=document.createElement('span'); x.className='xref'; x.textContent='→ '+node.x.split('→').pop().trim();
+    x.dataset.target=node.x; lbl.appendChild(x);}
   row.append(tw,lbl);
-  if(node.b){const b=document.createElement('span'); b.className='bdg'; b.style.color=`var(${acc})`; b.textContent=BADGE[node.b]||node.b; row.appendChild(b);}
   el.appendChild(row);
 
   if(node.c){
@@ -529,46 +358,55 @@ function build(node,depth,accent){
     node.c.forEach(ch=>kids.appendChild(build(ch,depth+1,acc)));
     el.appendChild(kids);
     row.addEventListener('click',e=>{
+      if(e.target.classList.contains('xref')) return;
       e.stopPropagation();
       el.classList.toggle('collapsed');
       tw.textContent=el.classList.contains('collapsed')?'▸':'▾';
     });
     if(depth===0) tw.textContent='▾';
   }
-  el.dataset.text=(node.n+' '+(node.d||'')).toLowerCase();
+  el.dataset.text=(node.n+' '+(node.d||'')+' '+(node.t||'')+' '+(node.l||'')).toLowerCase();
   return el;
 }
 TREE.forEach((n,i)=>tree.appendChild(build(n,0,ACC[i%ACC.length])));
 
-/* ── легенда ── */
-const legend=document.getElementById('legend');
-TREE.forEach((n,i)=>{
-  const s=document.createElement('span'); s.className='lg';
-  s.innerHTML=`<span class="dot" style="background:var(${n.a||ACC[i]})"></span>${n.n.split(':')[0]}`;
-  s.onclick=()=>{
-    const node=tree.children[i];
-    node.classList.remove('collapsed');
-    node.querySelector('.tw').textContent='▾';
-    node.scrollIntoView({behavior:'smooth',block:'start'});
-  };
-  legend.appendChild(s);
+/* xref: прыжок к фундаменту */
+tree.addEventListener('click',e=>{
+  if(!e.target.classList.contains('xref')) return;
+  const q=e.target.dataset.target.toLowerCase();
+  const key=q.split('/').pop().trim().slice(0,12);
+  const nodes=[...tree.querySelectorAll('.node')];
+  const target=nodes.find(n=>n.dataset.text.includes(key));
+  if(!target) return;
+  let p=target;
+  while(p&&p!==tree){ if(p.classList.contains('node')) setOpen(p,true); p=p.parentElement; }
+  target.scrollIntoView({behavior:'smooth',block:'center'});
+  target.querySelector('.row').classList.add('hit');
+  setTimeout(()=>target.querySelector('.row').classList.remove('hit'),2000);
 });
 
-/* -- поиск -- */
-const q=document.getElementById('q'), empty=document.getElementById('empty');
 function setOpen(node,open){
   node.classList.toggle('collapsed',!open);
   const t=node.querySelector('.tw');
-  if(t.textContent!=='\u00b7') t.textContent = open?'\u25be':'\u25b8';
+  if(t.textContent!=='·') t.textContent=open?'▾':'▸';
 }
+
+/* легенда */
+const legend=document.getElementById('legend');
+TREE.forEach((n,i)=>{
+  const s=document.createElement('span'); s.className='lg';
+  s.innerHTML=`<span class="dot" style="background:var(${n.a||ACC[i]})"></span>${(i+1)+'. '+n.n.split(' — ')[0].split(' и ')[0]}`;
+  s.onclick=()=>{const node=tree.children[i]; setOpen(node,true); node.scrollIntoView({behavior:'smooth',block:'start'});};
+  legend.appendChild(s);
+});
+
+/* поиск */
+const q=document.getElementById('q'), empty=document.getElementById('empty');
 q.addEventListener('input',()=>{
   const v=q.value.trim().toLowerCase();
   const all=[...tree.querySelectorAll('.node')];
   all.forEach(n=>{n.classList.remove('hidden'); n.querySelector('.row').classList.remove('hit');});
-  if(!v){
-    all.forEach(n=>setOpen(n,+n.dataset.depth===0));
-    empty.classList.add('hidden'); return;
-  }
+  if(!v){ all.forEach(n=>setOpen(n,+n.dataset.depth===0)); empty.classList.add('hidden'); return; }
   const keep=new Set();
   all.forEach(n=>{
     if(!n.dataset.text.includes(v)) return;
@@ -583,17 +421,10 @@ q.addEventListener('input',()=>{
   empty.classList.toggle('hidden',keep.size>0);
 });
 
-/* ── кнопки ── */
-document.getElementById('all').onclick=()=>tree.querySelectorAll('.node').forEach(n=>{
-  n.classList.remove('collapsed'); const t=n.querySelector('.tw'); if(t.textContent!=='·')t.textContent='▾';
-});
-document.getElementById('none').onclick=()=>tree.querySelectorAll('.node').forEach(n=>{
-  if(+n.dataset.depth>=1){n.classList.add('collapsed'); const t=n.querySelector('.tw'); if(t.textContent!=='·')t.textContent='▸';}
-});
-document.getElementById('theme').onclick=()=>{
-  const h=document.documentElement;
-  h.dataset.theme = h.dataset.theme==='light' ? '' : 'light';
-};
+/* кнопки */
+document.getElementById('all').onclick=()=>tree.querySelectorAll('.node').forEach(n=>setOpen(n,true));
+document.getElementById('none').onclick=()=>tree.querySelectorAll('.node').forEach(n=>{ if(+n.dataset.depth>=1) setOpen(n,false); });
+document.getElementById('theme').onclick=()=>{const h=document.documentElement; h.dataset.theme=h.dataset.theme==='light'?'':'light';};
 </script>
 </body>
 </html>
